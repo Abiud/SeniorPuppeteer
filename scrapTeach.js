@@ -2,8 +2,11 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const prof = "http://www.ratemyprofessors.com/ShowRatings.jsp?tid=**&showMyProfs=true";
 
-function fileToAray(){
+let pArr = [];
 
+function fileToAray(){
+    x = fs.readFileSync('./data.json');
+    pArr = JSON.parse(x);
 }
 
 function secondRun () {
@@ -26,6 +29,8 @@ function secondRun () {
     });
 }
 
+// run().then((result)=> { getId(result) }).catch(console.error);
+fileToAray().then(secondRun());
 /*
 Name:
 document.querySelector(".profname").innerText;
