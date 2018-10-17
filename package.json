@@ -1,0 +1,23 @@
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scraper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abiud/SeniorPuppeteer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abiud/SeniorPuppeteer/issues"
+  },
+  "homepage": "https://github.com/Abiud/SeniorPuppeteer#readme",
+  "dependencies": {
+    "puppeteer": "^1.9.0"
+  }
+}

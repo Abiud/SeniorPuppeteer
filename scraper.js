@@ -1,7 +1,8 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs');
 
 const idURL = "http://www.ratemyprofessors.com/search.jsp?queryBy=schoolId&schoolName=University+of+Texas+Rio+Grande+Valley+%28all+campuses%29&schoolID=1306&queryoption=TEACHER";
-const prof = "http://www.ratemyprofessors.com/ShowRatings.jsp?tid=**&showMyProfs=true";
+const info = [];
 
 let a = [];
 function run () {
@@ -11,16 +12,17 @@ function run () {
             const page = await browser.newPage();
             await page.goto(idURL, {waitUntil: 'networkidle2'});
 
-            n = 0;
+            n = 1;
             while (true) {
                 if (await page.waitForSelector('div.content', 'visible')){
+                    console.log(`Pass #${n}`);
                     await page.evaluate( () => document.querySelector( 'div.content' ).click() );
                     n++;
                 } else {
                     break;
                 }
-                await page.waitFor(4000);
-                if (n == 1) {
+                await page.waitFor(2000);
+                if (n == 196) {
                     break;
                 }
             }
@@ -31,7 +33,8 @@ function run () {
                 let items = document.querySelectorAll('[id^=my-professor-]');
                 console.log(items);
                 items.forEach((item) => {
-                    results.push(item.id);
+                    id = item.id;
+                    results.push({'id': id});
                 });
                 return results;
             })
@@ -49,10 +52,11 @@ run().then((result)=> { getId(result) }).catch(console.error);
 
 function getId(arr) {
     arr.forEach(item => { 
-        a.push(item.split('-')[2]);
+        a.push(item.id.split('-')[2]);
     });
-    secondRun(a);
-    //return a;
+    //secondRun(a);
+    //fs.writeFileSync('./data.json', JSON.stringify(a, null, 2));
+    return;
 }
 
 function secondRun () {
